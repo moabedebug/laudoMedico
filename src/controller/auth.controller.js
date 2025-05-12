@@ -1,4 +1,5 @@
 import { createUser } from '../services/user.services.js';
+import UserAlreadyExistsError from '../services/errors/UserAlreadyExistsError.js';
 
 export async function signup(req, res) {
   try {
@@ -11,6 +12,11 @@ export async function signup(req, res) {
     });
   } catch (err) {
     console.error("Erro no signup:", err.message);
-    res.status(500).json("Erro interno no servidor");
+
+    if(err instanceof UserAlreadyExistsError) {
+      return res.status(err.statusCode).json({ message: err.message });
+    }
+
+    res.status(500).json({ message: "Erro interno no servidor"});
   }
 }
