@@ -2,7 +2,8 @@ import { createUser } from '../services/user.services.js';
 
 export async function signup(req, res) {
   try {
-    const user = await createUser(parsed.data);
+    const { name, email, password } = req.body;
+    const user = await createUser({ name, email, password });
 
     res.status(201).json({
       message: "Usuário criado com sucesso",
