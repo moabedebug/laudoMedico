@@ -1,4 +1,4 @@
-import { createUser, loginUser } from '../services/user.services.js';
+import { createUser, loginUser } from '../services/auth.services.js';
 
 import UserAlreadyExistsError from '../services/errors/UserAlreadyExistsError.js';
 import InvalidCredentialsError from '../services/errors/InvalidCredentialsError.js';
