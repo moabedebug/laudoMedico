@@ -1,6 +1,6 @@
 import bcryptjs from 'bcryptjs';
 import { env } from '../config/env.js';
-import { UserRepository } from '../repositories/user.repository.js';
+import { UserRepository } from '../repositories/users.repository.js';
 
 import UserAlreadyExistsError from './errors/UserAlreadyExistsError.js';
 import InvalidCredentialsError from './errors/InvalidCredentialsError.js';
