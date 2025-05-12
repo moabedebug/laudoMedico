@@ -8,16 +8,8 @@ export function generateToken(user){
         email: user.email
     };
 
-    return jwt.sign(payload, env.JWT_SECRET, { expiresIn: "15m" });
+    const token = jwt.sign(payload, env.JWT_SECRET, { expiresIn: "1h" })
+
+    return token;
 }
 
-export function generateRefreshToken(user){
-    const payload = {
-        id: user._id
-    };
-    return jwt.sign(payload, env.JWT_SECRET, { expiresIn: "7d" })
-}
-
-export function verifyToken(token) {
-  return jwt.verify(token, env.JWT_SECRET);
-}

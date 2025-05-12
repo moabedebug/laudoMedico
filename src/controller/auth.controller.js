@@ -1,10 +1,9 @@
+import { env } from '../config/env.js';
+import { sendTokenReponse } from '../utils/sendTokenResponse.js';
 import { createUser, loginUser } from '../services/auth.services.js';
 
 import UserAlreadyExistsError from '../services/errors/UserAlreadyExistsError.js';
 import InvalidCredentialsError from '../services/errors/InvalidCredentialsError.js';
-import { sendTokenReponse } from '../utils/sendTokenResponse.js';
-import { env } from '../config/env.js';
-import { generateRefreshToken, generateToken } from '../utils/auth.utils.js';
 
 export async function signup(req, res) {
   try {
@@ -27,12 +26,9 @@ export async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    const user = await loginUser({ email, password });
+    const { user, token } = await loginUser({ email, password });
 
-    const accessToken = generateToken(user);
-    const refreshToken = generateRefreshToken(user);
-
-    sendTokenReponse(res, user, accessToken, refreshToken, "Login realizado com sucesso");
+    sendTokenReponse(res, user, token , "Login realizado com sucesso", 200);
 
   } catch (err) {
     console.error("Error no login:", err.message);

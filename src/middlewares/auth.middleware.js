@@ -1,4 +1,5 @@
-import { verifyToken } from '../utils/auth.utils.js';
+import jwt from 'jsonwebtoken';
+import { env } from '../config/env.js';
 
 export function authenticate(res, req, next){
     const token = req.cookies.token;
@@ -8,7 +9,7 @@ export function authenticate(res, req, next){
     }
 
     try {
-        const decoded = verifyToken(token);
+        const decoded = jwt.verify(token, env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
