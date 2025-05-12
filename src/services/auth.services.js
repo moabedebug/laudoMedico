@@ -1,6 +1,5 @@
 import bcryptjs from 'bcryptjs';
 import { env } from '../config/env.js';
-import { generateToken } from '../utils/auth.utils.js';
 import { UserRepository } from '../repositories/users.repository.js';
 
 import UserAlreadyExistsError from './errors/UserAlreadyExistsError.js';
@@ -17,10 +16,8 @@ export async function createUser({ name, email, password }) {
   const passwordHash = await bcryptjs.hash(password, SALT_ROUNDS);
   const newUser = await UserRepository.create({ name, email, passwordHash });
 
-  const token = generateToken(newUser);
-
   const { passwordHash: _, ...userWithoutPassword } = newUser.toObject();
-  return{ user: userWithoutPassword, token };
+  return userWithoutPassword
 }
 
 export async function loginUser({ email, password }) {
@@ -35,9 +32,7 @@ export async function loginUser({ email, password }) {
     throw new InvalidCredentialsError();
   }
 
-  const token = generateToken(user);
-
   const { passwordHash: _, ...userWithoutPassword } = user.toObject();
 
-  return { user: userWithoutPassword, token };
+  return userWithoutPassword
 }
