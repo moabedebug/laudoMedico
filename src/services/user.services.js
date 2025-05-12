@@ -1,7 +1,12 @@
 import bcryptjs from 'bcryptjs';
+import { env } from '../config/env.js';
 import { UserRepository } from '../repositories/user.repository.js';
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = env.SALT_ROUNDS;
+
+if (isNaN(SALT_ROUNDS) || SALT_ROUNDS <= 0) {
+  throw new Error("SALT_ROUNDS deve ser um número válido e maior que 0.");
+}
 
 export async function createUser({ name, email, password }) {
   const existingEmail = await UserRepository.findByEmail(email);
