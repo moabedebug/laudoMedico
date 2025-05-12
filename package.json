@@ -1,12 +1,13 @@
 {
   "name": "laudomedico",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/dev",
   "scripts": {
-    "dev": "nodemon backend/server.js"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
+  "type": "module",
   "license": "ISC",
   "description": "",
   "dependencies": {
