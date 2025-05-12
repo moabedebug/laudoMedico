@@ -1,8 +1,8 @@
 import { app } from "./app.js";
 import { connectDB } from "./config/db.js";
-import { ENV_VARS } from "./config/envVars.js";
+import { env } from "./config/env.js";
 
-const PORT = ENV_VARS.PORT
+const PORT = env.PORT
 
 app.listen(PORT, () => {
     console.log(`Server iniciado: http://localhost:${PORT}`);
