@@ -1,6 +1,8 @@
 import bcryptjs from 'bcryptjs';
 import { UserRepository } from '../repositories/user.repository.js';
 
+const SALT_ROUNDS = 10;
+
 export async function createUser({ name, email, password }) {
   const existingEmail = await UserRepository.findByEmail(email);
   if (existingEmail) {
@@ -12,7 +14,7 @@ export async function createUser({ name, email, password }) {
     throw new Error("Nome de usuário já existe");
   }
 
-  const passwordHash = await bcryptjs.hash(password, 6);
+  const passwordHash = await bcryptjs.hash(password, SALT_ROUNDS);
   const newUser = await UserRepository.create({ name, email, passwordHash });
 
   const { passwordHash: _, ...userWithoutPassword } = newUser.toObject();
