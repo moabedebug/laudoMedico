@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.js';
 
+import UnauthorizedError from '../services/errors/UnauthorizedError.js';
+
 export function authenticate(req, res, next){
     const token = req.cookies.token;
 
     if(!token) {
-        return res.status(401).json({ message: "Token não encontrado. Usuário não autenticado." });
+        return next(new UnauthorizedError("Token não encontrado."));
     }
 
     try {
@@ -13,6 +15,6 @@ export function authenticate(req, res, next){
         req.user = decoded;
         next();
     } catch (err) {
-        return res.status(401).json({ message: "Token inválido ou expirado." })
+        return next(new UnauthorizedError("Token inválido ou expirado."))
     }
 }
