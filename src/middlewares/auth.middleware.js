@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.js';
 
-export function authenticate(res, req, next){
+export function authenticate(req, res, next){
     const token = req.cookies.token;
 
     if(!token) {
