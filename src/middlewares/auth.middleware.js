@@ -3,7 +3,7 @@ import { env } from '../config/env.js'
 
 import UnauthorizedError from '../services/errors/UnauthorizedError.js'
 
-export function authenticate(req, res, next) {
+export function auth(req, res, next) {
   const token = req.cookies.token
 
   if (!token) {
