@@ -27,6 +27,11 @@ const patientSchema = new mongoose.Schema(
       required: true,
       enum: ['Masculino', 'Feminino', 'Outro'],
     },
+    doctorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true, validateBeforeSave: true },
 )

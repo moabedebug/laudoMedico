@@ -6,6 +6,7 @@ export function generateToken(user) {
     id: user._id,
     name: user.name,
     email: user.email,
+    doctorId: user._id,
   }
 
   const token = jwt.sign(payload, env.JWT_SECRET, { expiresIn: '1h' })
