@@ -1,6 +1,11 @@
 import { User } from '../model/user.model.js'
 
 export const UserRepository = {
-  findByEmail: (email) => User.findOne({ email }),
-  create: (userData) => new User(userData).save(),
+  findByEmail: async (email) => {
+    return await User.findOne({ email })
+  },
+  create: async (userData) => {
+    const user = new User(userData)
+    return await user.save()
+  },
 }
