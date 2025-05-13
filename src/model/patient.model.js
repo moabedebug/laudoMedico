@@ -14,7 +14,6 @@ const patientSchema = new mongoose.Schema(
     cpf: {
       type: String,
       required: true,
-      unique: true,
     },
     phone: {
       type: String,
@@ -36,6 +35,8 @@ const patientSchema = new mongoose.Schema(
   { timestamps: true, validateBeforeSave: true },
 )
 
+patientSchema.index({ cpf: 1, doctorId: 1 }, { unique: true })
+
 patientSchema.set('toJSON', {
   transform: function (doc, ret) {
     delete ret.__v
@@ -43,4 +44,4 @@ patientSchema.set('toJSON', {
   },
 })
 
-export const Patient = mongoose.model('Patient', patientSchema)
+export const Patient = mongoose.model('Patients', patientSchema)
