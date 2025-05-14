@@ -3,15 +3,14 @@ import { env } from '../config/env.js'
 import { generateToken } from '../utils/auth.utils.js'
 import { UserRepository } from '../repositories/users.repository.js'
 
-import UserAlreadyExistsError from './errors/UserAlreadyExistsError.js'
-import InvalidCredentialsError from './errors/InvalidCredentialsError.js'
+import * as Errors from './errors/index.js'
 
 const SALT_ROUNDS = env.SALT_ROUNDS
 
 export async function createUser({ name, email, password }) {
   const existingEmail = await UserRepository.findByEmail(email)
   if (existingEmail) {
-    throw new UserAlreadyExistsError()
+    throw new Errors.UserAlreadyExistsError()
   }
 
   const passwordHash = await bcryptjs.hash(password, SALT_ROUNDS)
@@ -26,12 +25,12 @@ export async function createUser({ name, email, password }) {
 export async function loginUser({ email, password }) {
   const user = await UserRepository.findByEmail(email)
   if (!user) {
-    throw new InvalidCredentialsError()
+    throw new Errors.InvalidCredentialsError()
   }
 
   const passwordCompare = await bcryptjs.compare(password, user.passwordHash)
   if (!passwordCompare) {
-    throw new InvalidCredentialsError()
+    throw new Errors.InvalidCredentialsError()
   }
 
   const token = generateToken(user)

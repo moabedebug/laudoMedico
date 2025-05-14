@@ -2,10 +2,7 @@ import { isValidObjectId } from 'mongoose'
 
 import { PatientRepository } from '../repositories/patient.repository.js'
 
-import PatientAlreadyExistsError from './errors/Patient/PatientAlreadyExistsError.js'
-import InvalidDoctorIdError from './errors/Patient/InvalidDoctorIdError.js'
-import PatientNotFoundError from './errors/Patient/PatientNotFoundError.js'
-import InvalidPatientIdError from './errors/Patient/InvalidPatientIdError.js'
+import * as Errors from './errors/index.js'
 
 export async function createPatient(data, doctorId) {
   const existingData = await PatientRepository.findByCpfAndDoctor(
@@ -13,7 +10,7 @@ export async function createPatient(data, doctorId) {
     doctorId,
   )
   if (existingData) {
-    throw new PatientAlreadyExistsError()
+    throw new Errors.PatientAlreadyExistsError()
   }
 
   return await PatientRepository.create({ ...data, doctorId })
@@ -21,7 +18,7 @@ export async function createPatient(data, doctorId) {
 
 export async function getAllPatients(doctorId) {
   if (!isValidObjectId(doctorId)) {
-    throw new InvalidDoctorIdError()
+    throw new Errors.InvalidDoctorIdError()
   }
   return await PatientRepository.findAllByDoctorId(doctorId)
 }
@@ -31,7 +28,7 @@ export async function getPatientById(id) {
 
   const patient = await PatientRepository.findById(id)
   if (!patient) {
-    throw new PatientNotFoundError()
+    throw new Errors.PatientNotFoundError()
   }
 
   return patient
@@ -46,19 +43,19 @@ export async function updatePatient(id, updateData) {
   )
 
   if (existing && existing._id.toString() !== id) {
-    throw new PatientAlreadyExistsError()
+    throw new Errors.PatientAlreadyExistsError()
   }
 
   try {
     const updated = await PatientRepository.update(id, updateData)
     if (!updated) {
-      throw new PatientNotFoundError()
+      throw new Errors.PatientNotFoundError()
     }
 
     return updated
   } catch (err) {
     if (err.code === 11000) {
-      throw new PatientAlreadyExistsError()
+      throw new Errors.PatientAlreadyExistsError()
     }
 
     throw err
@@ -70,7 +67,7 @@ export async function deletePatient(id) {
 
   const deleted = await PatientRepository.delete(id)
   if (!deleted) {
-    throw new PatientNotFoundError()
+    throw new Errors.PatientNotFoundError()
   }
 
   return deleted
@@ -78,6 +75,6 @@ export async function deletePatient(id) {
 
 function validatePatientId(id) {
   if (!id || !isValidObjectId(id)) {
-    throw new InvalidPatientIdError()
+    throw new Errors.InvalidPatientIdError()
   }
 }
