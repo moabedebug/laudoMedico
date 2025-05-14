@@ -7,7 +7,7 @@ export const reportSchema = new mongoose.Schema(
       ref: 'Patient',
       required: true,
     },
-    doctor: {
+    doctorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       require: true,
