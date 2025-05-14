@@ -3,6 +3,7 @@ import { isValidObjectId } from 'mongoose'
 import { PatientRepository } from '../repositories/patient.repository.js'
 
 import * as Errors from '../errors/index.js'
+import { ReportRepository } from '../repositories/reports.repository.js'
 
 export async function createPatient(data, doctorId) {
   const existingData = await PatientRepository.findByCpfAndDoctor(
@@ -62,15 +63,19 @@ export async function updatePatient(id, updateData) {
   }
 }
 
-export async function deletePatient(id) {
-  validatePatientId(id)
+export const deletePatient = async (patientId) => {
+  if (!isValidObjectId(patientId)) {
+    throw new Errors.InvalidPatientIdError()
+  }
 
-  const deleted = await PatientRepository.delete(id)
-  if (!deleted) {
+  const patient = await PatientRepository.findById(patientId)
+  if (!patient) {
     throw new Errors.PatientNotFoundError()
   }
 
-  return deleted
+  await ReportRepository.deleteReportAndPatient(patientId)
+
+  await PatientRepository.delete(patientId)
 }
 
 function validatePatientId(id) {

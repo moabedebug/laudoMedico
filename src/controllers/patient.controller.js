@@ -27,9 +27,7 @@ export async function findAll(req, res) {
 export async function findById(req, res) {
   try {
     const patient = await getPatientById(req.params.id)
-    return res
-      .status(200)
-      .json({ message: 'Paciente criado com sucesso', patient })
+    return res.status(200).json({ message: 'Paciente:', patient })
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message })
   }
@@ -53,7 +51,9 @@ export async function update(req, res) {
 export async function deleted(req, res) {
   try {
     await deletePatient(req.params.id)
-    return res.status(200).json({ message: 'Paciente deletado com sucesso' })
+    return res
+      .status(200)
+      .json({ message: 'Paciente e relatórios deletado com sucesso' })
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message })
   }
