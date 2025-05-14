@@ -19,5 +19,9 @@ app.use('/api/v1/patients', PatientRoutes)
 
 app.use((err, req, res, _next) => {
   console.error('Erro no processamento da requisição:', err)
-  res.status(500).json({ message: 'Erro interno do servidor' })
+
+  const statusCode = err.statusCode || 500
+  const message = err.message || 'Erro interno do servidor'
+
+  res.status(statusCode).json({ message })
 })

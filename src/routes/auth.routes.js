@@ -10,9 +10,4 @@ router.post('/signup', validateSchema(signupSchema), signup)
 router.post('/login', validateSchema(loginSchema), login)
 router.post('/logout', auth, logout)
 
-router.use((err, req, res, _next) => {
-  console.error('Erro no processamento da requisição:', err)
-  res.status(500).json({ message: 'Erro interno do servidor' })
-})
-
 export default router

@@ -20,9 +20,4 @@ router.get('/:id', findById)
 router.put('/:id', validateSchema(patientSchema), update)
 router.delete('/:id', deleted)
 
-router.use((err, req, res, _next) => {
-  console.error('Erro no processamento da requisição:', err)
-  res.status(500).json({ message: 'Erro interno do servidor' })
-})
-
 export default router
