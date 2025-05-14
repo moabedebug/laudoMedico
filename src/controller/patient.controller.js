@@ -18,7 +18,7 @@ export async function create(req, res) {
 export async function findAll(req, res) {
   try {
     const patients = await getAllPatients(req.user.doctorId)
-    return res.status(200).json({ Paciente: patients })
+    return res.status(200).json({ Pacientes: patients })
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message })
   }
@@ -27,7 +27,9 @@ export async function findAll(req, res) {
 export async function findById(req, res) {
   try {
     const patient = await getPatientById(req.params.id)
-    return res.status(200).json(patient)
+    return res
+      .status(200)
+      .json({ message: 'Paciente criado com sucesso', patient })
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message })
   }
