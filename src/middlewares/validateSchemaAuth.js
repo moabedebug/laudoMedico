@@ -1,4 +1,4 @@
-export function validateSchema(schema) {
+export function validateSchemaAuth(schema) {
   return (req, res, next) => {
     const result = schema.safeParse(req.body)
 
