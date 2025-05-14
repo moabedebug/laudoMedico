@@ -8,7 +8,7 @@ import {
   findById,
   update,
   deleted,
-} from '../controller/patient.controller.js'
+} from '../controllers/patient.controller.js'
 
 const router = express.Router()
 

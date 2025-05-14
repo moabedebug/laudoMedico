@@ -2,7 +2,7 @@ import express from 'express'
 import { auth } from '../middlewares/auth.middleware.js'
 import { validateSchema } from '../middlewares/validateSchema.js'
 import { signupSchema, loginSchema } from '../schemas/auth.schema.js'
-import { login, logout, signup } from '../controller/auth.controller.js'
+import { login, logout, signup } from '../controllers/auth.controller.js'
 
 const router = express.Router()
 

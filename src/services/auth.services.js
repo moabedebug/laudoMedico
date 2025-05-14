@@ -3,7 +3,7 @@ import { env } from '../config/env.js'
 import { generateToken } from '../utils/auth.utils.js'
 import { UserRepository } from '../repositories/users.repository.js'
 
-import * as Errors from './errors/index.js'
+import * as Errors from '../errors/index.js'
 
 const SALT_ROUNDS = env.SALT_ROUNDS
 

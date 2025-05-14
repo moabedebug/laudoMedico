@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { env } from '../config/env.js'
 
-import * as Errors from '../services/errors/index.js'
+import * as Errors from '../errors/index.js'
 
 export function auth(req, res, next) {
   const token = req.cookies.token

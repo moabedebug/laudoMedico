@@ -1,4 +1,4 @@
-import { Patient } from '../model/patient.model.js'
+import { Patient } from '../models/patient.model.js'
 
 export const PatientRepository = {
   create: async (userData) => {

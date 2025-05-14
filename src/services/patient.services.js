@@ -2,7 +2,7 @@ import { isValidObjectId } from 'mongoose'
 
 import { PatientRepository } from '../repositories/patient.repository.js'
 
-import * as Errors from './errors/index.js'
+import * as Errors from '../errors/index.js'
 
 export async function createPatient(data, doctorId) {
   const existingData = await PatientRepository.findByCpfAndDoctor(
