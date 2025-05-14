@@ -4,7 +4,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 import authRoutes from './routes/auth.routes.js'
-import PatientRoutes from './routes/patient.routes.js'
+import patientRoutes from './routes/patient.routes.js'
+import reportRoutes from './routes/report.routes.js'
 
 dotenv.config()
 
@@ -15,7 +16,8 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use('/api/v1/auth', authRoutes)
-app.use('/api/v1/patients', PatientRoutes)
+app.use('/api/v1/patients', patientRoutes)
+app.use('/api/v1/reports', reportRoutes)
 
 app.use((err, req, res, _next) => {
   console.error('Erro no processamento da requisição:', err)
