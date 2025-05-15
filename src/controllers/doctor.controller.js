@@ -1,13 +1,13 @@
 import { env } from '../config/env.js'
 import { sendTokenReponse } from '../utils/sendTokenResponse.js'
-import { createUser, loginUser } from '../services/auth.services.js'
+import { createDoctor, loginDoctor } from '../services/doctor.services.js'
 
 export async function signup(req, res) {
   try {
     const { name, email, password } = req.body
-    const { user, token } = await createUser({ name, email, password })
+    const { doctor, token } = await createDoctor({ name, email, password })
 
-    sendTokenReponse(res, user, token, 'Usuário criado com sucesso', 201)
+    sendTokenReponse(res, doctor, token, 'Usuário criado com sucesso', 201)
   } catch (err) {
     res.status(err.statusCode || 500).json({ message: err.message })
   }
@@ -17,9 +17,9 @@ export async function login(req, res) {
   try {
     const { email, password } = req.body
 
-    const { user, token } = await loginUser({ email, password })
+    const { doctor, token } = await loginDoctor({ email, password })
 
-    sendTokenReponse(res, user, token, 'Login realizado com sucesso', 200)
+    sendTokenReponse(res, doctor, token, 'Login realizado com sucesso', 200)
   } catch (err) {
     res.status(err.statusCode || 500).json({ message: err.message })
   }

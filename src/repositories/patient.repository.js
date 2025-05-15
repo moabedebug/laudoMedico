@@ -1,8 +1,8 @@
 import { Patient } from '../models/patient.model.js'
 
 export const PatientRepository = {
-  create: async (userData) => {
-    const patient = new Patient(userData)
+  create: async (patientData) => {
+    const patient = new Patient(patientData)
     return await patient.save()
   },
 
@@ -10,16 +10,18 @@ export const PatientRepository = {
     return await Patient.find({ doctorId })
   },
 
-  findById: async (id) => {
-    return await Patient.findById(id)
+  findById: async (patientId) => {
+    return await Patient.findById(patientId)
   },
 
-  update: async (id, data) => {
-    return await Patient.findByIdAndUpdate(id, data, { new: true })
+  update: async (patientId, patientData) => {
+    return await Patient.findByIdAndUpdate(patientId, patientData, {
+      new: true,
+    })
   },
 
-  delete: async (id) => {
-    return await Patient.findByIdAndDelete(id)
+  delete: async (patientId) => {
+    return await Patient.findByIdAndDelete(patientId)
   },
 
   findByCpfAndDoctor: async (cpf, doctorId) => {

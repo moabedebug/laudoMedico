@@ -9,7 +9,7 @@ export function generateToken(user) {
     doctorId: user._id,
   }
 
-  const token = jwt.sign(payload, env.JWT_SECRET, { expiresIn: '1h' })
+  const token = jwt.sign(payload, env.JWT_SECRET, { expiresIn: '24h' })
 
   return token
 }

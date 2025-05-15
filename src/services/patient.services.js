@@ -3,18 +3,18 @@ import { isValidObjectId } from 'mongoose'
 import { PatientRepository } from '../repositories/patient.repository.js'
 
 import * as Errors from '../errors/index.js'
-import { ReportRepository } from '../repositories/reports.repository.js'
+import { ReportRepository } from '../repositories/report.repository.js'
 
-export async function createPatient(data, doctorId) {
-  const existingData = await PatientRepository.findByCpfAndDoctor(
-    data.cpf,
+export async function createPatient(patientData, doctorId) {
+  const existingPatientData = await PatientRepository.findByCpfAndDoctor(
+    patientData.cpf,
     doctorId,
   )
-  if (existingData) {
+  if (existingPatientData) {
     throw new Errors.PatientAlreadyExistsError()
   }
 
-  return await PatientRepository.create({ ...data, doctorId })
+  return await PatientRepository.create({ ...patientData, doctorId })
 }
 
 export async function getAllPatients(doctorId) {
@@ -24,10 +24,10 @@ export async function getAllPatients(doctorId) {
   return await PatientRepository.findAllByDoctorId(doctorId)
 }
 
-export async function getPatientById(id) {
-  validatePatientId(id)
+export async function getPatientById(patientId) {
+  validatePatientId(patientId)
 
-  const patient = await PatientRepository.findById(id)
+  const patient = await PatientRepository.findById(patientId)
   if (!patient) {
     throw new Errors.PatientNotFoundError()
   }
@@ -35,25 +35,28 @@ export async function getPatientById(id) {
   return patient
 }
 
-export async function updatePatient(id, updateData) {
-  validatePatientId(id)
+export async function updatePatient(patientId, patientData) {
+  validatePatientId(patientId)
 
-  const existing = await PatientRepository.findByCpfAndDoctor(
-    updateData.cpf,
-    updateData.doctorId,
+  const existingPatient = await PatientRepository.findByCpfAndDoctor(
+    patientData.cpf,
+    patientData.doctorId,
   )
 
-  if (existing && existing._id.toString() !== id) {
+  if (existingPatient && existingPatient._id.toString() !== patientId) {
     throw new Errors.PatientAlreadyExistsError()
   }
 
   try {
-    const updated = await PatientRepository.update(id, updateData)
-    if (!updated) {
+    const updatedPatient = await PatientRepository.update(
+      patientId,
+      patientData,
+    )
+    if (!updatedPatient) {
       throw new Errors.PatientNotFoundError()
     }
 
-    return updated
+    return updatedPatient
   } catch (err) {
     if (err.code === 11000) {
       throw new Errors.PatientAlreadyExistsError()
@@ -63,7 +66,7 @@ export async function updatePatient(id, updateData) {
   }
 }
 
-export const deletePatient = async (patientId) => {
+export const removePatient = async (patientId) => {
   if (!isValidObjectId(patientId)) {
     throw new Errors.InvalidPatientIdError()
   }
@@ -78,8 +81,8 @@ export const deletePatient = async (patientId) => {
   await PatientRepository.delete(patientId)
 }
 
-function validatePatientId(id) {
-  if (!id || !isValidObjectId(id)) {
+function validatePatientId(patientId) {
+  if (!patientId || !isValidObjectId(patientId)) {
     throw new Errors.InvalidPatientIdError()
   }
 }

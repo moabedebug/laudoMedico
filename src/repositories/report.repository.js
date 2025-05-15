@@ -1,8 +1,8 @@
 import { Report } from '../models/report.model.js'
 
 export const ReportRepository = {
-  create: async (data) => {
-    const report = new Report(data)
+  create: async (reportData) => {
+    const report = new Report(reportData)
     return await report.save()
   },
 
@@ -18,8 +18,8 @@ export const ReportRepository = {
     return await Report.findById(reportId)
   },
 
-  update: async (reportId, data) => {
-    return await Report.findByIdAndUpdate(reportId, data, { new: true })
+  update: async (reportId, reportData) => {
+    return await Report.findByIdAndUpdate(reportId, reportData, { new: true })
   },
 
   delete: async (reportId) => {

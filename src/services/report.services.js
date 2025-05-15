@@ -1,25 +1,25 @@
 import { isValidObjectId } from 'mongoose'
 import * as Errors from '../errors/index.js'
 import { Patient } from '../models/patient.model.js'
-import { ReportRepository } from '../repositories/reports.repository.js'
+import { ReportRepository } from '../repositories/report.repository.js'
 
-export const createReport = async (data, doctorId) => {
+export const createReport = async (reportData, doctorId) => {
   if (!isValidObjectId(doctorId)) {
     throw new Errors.InvalidDoctorIdError()
   }
 
-  if (!isValidObjectId(data.patient)) {
+  if (!isValidObjectId(reportData.patient)) {
     throw new Errors.InvalidPatientIdError()
   }
 
-  const patientExists = await Patient.findById(data.patient)
+  const patientExists = await Patient.findById(reportData.patient)
   if (!patientExists) {
     throw new Errors.PatientNotFoundError()
   }
 
-  data.doctorId = doctorId
+  reportData.doctorId = doctorId
 
-  return await ReportRepository.create(data)
+  return await ReportRepository.create(reportData)
 }
 
 export const getReportsByPatient = async (patientId) => {
@@ -27,12 +27,12 @@ export const getReportsByPatient = async (patientId) => {
     throw new Errors.InvalidPatientIdError()
   }
 
-  const reports = await ReportRepository.findReportsByPatient(patientId)
-  if (reports === 0) {
+  const reportsPatient = await ReportRepository.findReportsByPatient(patientId)
+  if (reportsPatient === 0) {
     throw new Errors.ReportNotFoundError()
   }
 
-  return reports
+  return reportsPatient
 }
 
 export const getReportsByDoctor = async (doctorId) => {
@@ -40,12 +40,12 @@ export const getReportsByDoctor = async (doctorId) => {
     throw new Errors.InvalidDoctorIdError()
   }
 
-  const reports = await ReportRepository.findReportsByDoctor(doctorId)
-  if (!reports) {
+  const reportsDoctor = await ReportRepository.findReportsByDoctor(doctorId)
+  if (!reportsDoctor) {
     throw new Errors.ReportNotFoundError()
   }
 
-  return reports
+  return reportsDoctor
 }
 
 export const getReportById = async (reportId) => {
@@ -61,7 +61,7 @@ export const getReportById = async (reportId) => {
   return report
 }
 
-export const updateReport = async (reportId, data) => {
+export const updateReport = async (reportId, reportData) => {
   if (!isValidObjectId(reportId)) {
     throw new Errors.InvalidReportIdError()
   }
@@ -71,10 +71,10 @@ export const updateReport = async (reportId, data) => {
     throw new Errors.ReportNotFoundError()
   }
 
-  return await ReportRepository.update(reportId, data)
+  return await ReportRepository.update(reportId, reportData)
 }
 
-export const deleteReport = async (reportId) => {
+export const removeReport = async (reportId) => {
   if (!isValidObjectId(reportId)) {
     throw new Errors.InvalidReportIdError()
   }

@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import authRoutes from './routes/auth.routes.js'
+import doctorRoutes from './routes/doctor.routes.js'
 import patientRoutes from './routes/patient.routes.js'
 import reportRoutes from './routes/report.routes.js'
 
@@ -15,7 +15,7 @@ app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
-app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/auth', doctorRoutes)
 app.use('/api/v1/patients', patientRoutes)
 app.use('/api/v1/reports', reportRoutes)
 

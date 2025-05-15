@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const userSchema = new mongoose.Schema(
+const doctorSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true },
 )
 
-userSchema.set('toJSON', {
+doctorSchema.set('toJSON', {
   transform: function (doc, ret) {
     delete ret.passwordHash
     delete ret.__v
@@ -30,4 +30,4 @@ userSchema.set('toJSON', {
   },
 })
 
-export const User = mongoose.model('User', userSchema)
+export const Doctor = mongoose.model('Doctors', doctorSchema)
