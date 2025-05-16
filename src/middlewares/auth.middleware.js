@@ -5,7 +5,6 @@ import * as Errors from '../errors/index.js'
 
 export function auth(req, res, next) {
   const token = req.cookies.token
-  console.log(req.cookies)
 
   if (!token) {
     return next(new Errors.UnauthorizedError('Usuário não autenticado.'))
