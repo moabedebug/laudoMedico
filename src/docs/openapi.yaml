@@ -1,0 +1,361 @@
+openapi: 3.0.3
+info:
+  title: API de Gerenciamento de Pacientes e Relatórios
+  description: Esta API permite que doutores gerenciem pacientes, relatórios médicos e sessões de autenticação.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3333
+    description: Servidor local de desenvolvimento
+
+tags:
+  - name: Doutores
+    description: Endpoints de autenticação e sessão de doutores
+  - name: Pacientes
+    description: Endpoints para gerenciamento de pacientes
+  - name: Relatórios
+    description: Endpoints para criação, leitura, atualização e exclusão de relatórios médicos
+
+paths:
+  /api/v1/doctors/signup:
+    post:
+      summary: Registra um novo doutor
+      tags: [Doutores]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Signup"
+      responses:
+        "201":
+          description: Doutor registrado com sucesso
+        "400":
+          description: Dados inválidos
+
+  /api/v1/doctors/login:
+    post:
+      summary: Realiza o login de um doutor
+      tags: [Doutores]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: Login realizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR..."
+
+  /api/v1/doctors/logout:
+    post:
+      summary: Realiza logout do doutor autenticado
+      tags: [Doutores]
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Logout realizado com sucesso
+        "401":
+          description: Token inválido ou ausente
+
+  /api/v1/patients:
+    post:
+      summary: Registra um novo paciente
+      tags: [Pacientes]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePatient"
+      responses:
+        "201":
+          description: Paciente registrado com sucesso
+        "400":
+          description: Dados inválidos
+        "409":
+          description: CPF já cadastrado
+
+    get:
+      summary: Retorna todos os pacientes do doutor autenticado
+      tags: [Pacientes]
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Lista de pacientes retornada com sucesso
+        "404":
+          description: Nenhum paciente encontrado
+
+  /api/v1/patients/{id}:
+    get:
+      summary: Retorna os dados de um paciente específico
+      tags: [Pacientes]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paciente encontrado
+        "404":
+          description: Paciente não encontrado
+
+    put:
+      summary: Atualiza os dados de um paciente específico
+      tags: [Pacientes]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePatient"
+      responses:
+        "200":
+          description: Paciente atualizado com sucesso
+        "404":
+          description: Paciente não encontrado
+
+    delete:
+      summary: Deleta um paciente e seus relatórios
+      tags: [Pacientes]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paciente deletado com sucesso
+        "404":
+          description: Paciente não encontrado
+
+  /api/v1/reports:
+    post:
+      summary: Cria um novo relatório
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReport"
+      responses:
+        "201":
+          description: Relatório criado com sucesso
+        "400":
+          description: Dados inválidos
+        "404":
+          description: Paciente não encontrado
+
+  /api/v1/reports/patient/{id}:
+    get:
+      summary: Retorna os relatórios de um paciente específico
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Relatórios do paciente retornados com sucesso
+        "404":
+          description: Relatório(s) ou paciente não encontrado(s)
+
+  /api/v1/reports/doctor:
+    get:
+      summary: Retorna os relatórios do doutor autenticado
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Relatórios retornados com sucesso
+        "404":
+          description: Nenhum relatório encontrado
+
+  /api/v1/reports/{id}:
+    get:
+      summary: Retorna um relatório específico pelo ID
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Relatório encontrado
+        "404":
+          description: Relatório não encontrado
+
+    put:
+      summary: Atualiza um relatório existente
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateReport"
+      responses:
+        "200":
+          description: Relatório atualizado com sucesso
+        "404":
+          description: Relatório não encontrado
+
+    delete:
+      summary: Deleta um relatório pelo ID
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Relatório deletado com sucesso
+        "404":
+          description: Relatório não encontrado
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+  schemas:
+    Signup:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Dr. João da Silva
+        email:
+          type: string
+          example: joao@clinica.com
+        password:
+          type: string
+          example: senhaSegura123
+      required: [name, email, password]
+
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: joao@clinica.com
+        password:
+          type: string
+          example: senhaSegura123
+      required: [email, password]
+
+    CreatePatient:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        cpf:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+      required: [name, age, cpf, phone, email, gender]
+
+    UpdatePatient:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        cpf:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        gender:
+          type: string
+      required: [name, age, cpf, phone, email, gender]
+
+    CreateReport:
+      type: object
+      properties:
+        patient:
+          type: string
+        diagnosis:
+          type: string
+        prescription:
+          type: string
+        observation:
+          type: string
+      required: [patient, diagnosis, prescription, observation]
+
+    UpdateReport:
+      type: object
+      properties:
+        diagnosis:
+          type: string
+        prescription:
+          type: string
+        observation:
+          type: string
+      required: [diagnosis, prescription, observation]
