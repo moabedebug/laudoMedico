@@ -10,10 +10,12 @@ API REST desenvolvida em Node.js para permitir que médicos criem, consultem e g
 - Express
 - MongoDB + Mongoose
 - JWT para autenticação
-- bcrypt para hash de senhas
+- bcryptjs para hash de senhas
 - Zod para validações
-- ESLint + Prettier
+- Swagger para documentação da API
+- ESLint + Prettier (Rocketseat config)
 - Dotenv
+- Nodemon (ambiente de desenvolvimento)
 
 ---
 
@@ -50,12 +52,21 @@ NODE_ENV=development
 npm run dev
 ```
 
+## 📚 Documentação da API
+
+- A documentação interativa está disponível via Swagger após iniciar o servidor:
+
+```bash
+http://localhost:3333/api-docs
+```
+
 ## 🧱 Estrutura de pastas
 
 ```bash
 src/
 ├── config/         # Configurações de banco e ambiente
 ├── controllers/    # Lida com as requisições HTTP
+├── doc/            # Documentação técnica da API (Swagger, exemplos, guias)
 ├── errors/         # Classes e tipos de erro personalizados
 ├── middlewares/    # Interceptadores e validadores de requisições
 ├── models/         # Modelos do Mongoose
@@ -70,13 +81,13 @@ src/
 
 ---
 
-## 📌 Funcionalidades
+## 🔐 Funcionalidades
 
-- Autenticação de usuários (login, registro)
-- Criação, edição e exclusão de pacientes
+- Registro e login de usuários com autenticação JWT
+- Criação, edição, listagem e exclusão de pacientes
 - Geração de relatórios médicos
-- Validação robusta de dados
-- Proteção de rotas com JWT
+- Validação robusta de dados com Zod
+- Rotas protegidas com middleware de autenticação
 
 ---
 
