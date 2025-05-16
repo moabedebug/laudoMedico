@@ -17,6 +17,7 @@ export function sendTokenReponse(
     .status(statusCode)
     .json({
       message,
+      token,
       doctor,
     })
 }

@@ -3,7 +3,9 @@ import * as Services from '../services/patient.services.js'
 export async function create(req, res) {
   try {
     const patient = await Services.createPatient(req.body, req.user.doctorId)
-    res.status(201).json({ message: 'Paciente criado com sucesso', patient })
+    res
+      .status(201)
+      .json({ message: 'Paciente registrado com sucesso', patient })
   } catch (err) {
     res.status(err.statusCode || 500).json({ message: err.message })
   }
