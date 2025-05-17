@@ -264,13 +264,26 @@ paths:
         "404":
           description: Relatório não encontrado
 
+  /api/v1/reports/{id}/download:
+    get:
+      summary: Faz um download do relatório específico pelo ID
+      tags: [Relatórios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download do relatório feito
+        "404":
+          description: Relatório não encontrado
+
 components:
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
     cookieAuth:
       type: apiKey
       in: cookie
@@ -307,16 +320,22 @@ components:
       properties:
         name:
           type: string
+          example: Fulano
         age:
           type: integer
+          example: 32
         cpf:
           type: string
+          example: 123.456.789-00
         phone:
           type: string
+          example: (12) 91234-5678
         email:
           type: string
+          example: fulano@fulano.com
         gender:
           type: string
+          example: Masculino
       required: [name, age, cpf, phone, email, gender]
 
     UpdatePatient:
@@ -324,16 +343,22 @@ components:
       properties:
         name:
           type: string
+          example: Fulano1
         age:
           type: integer
+          example: 30
         cpf:
           type: string
+          example: 123.456.789-01
         phone:
           type: string
+          example: (12) 91234-5671
         email:
           type: string
+          example: fulano1@fulano.com
         gender:
           type: string
+          example: Masculino
       required: [name, age, cpf, phone, email, gender]
 
     CreateReport:
@@ -341,12 +366,16 @@ components:
       properties:
         patient:
           type: string
+          example: "choose a patientID"
         diagnosis:
           type: string
-        prescription:
+          example: Gripe
+        observations:
           type: string
-        observation:
+          example: Dores de cabeça
+        recommendation:
           type: string
+          example: Ficar de repouso
       required: [patient, diagnosis, prescription, observation]
 
     UpdateReport:
@@ -354,8 +383,11 @@ components:
       properties:
         diagnosis:
           type: string
-        prescription:
+          example: Gripe
+        observations:
           type: string
-        observation:
+          example: Nenhuma obersevação
+        recommendation:
           type: string
+          example: Ficar de repouso
       required: [diagnosis, prescription, observation]
