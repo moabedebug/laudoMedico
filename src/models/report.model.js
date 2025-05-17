@@ -4,12 +4,12 @@ export const reportSchema = new mongoose.Schema(
   {
     patient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Patient',
+      ref: 'Patients',
       required: true,
     },
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Doctor',
+      ref: 'Doctors',
       require: true,
     },
     diagnosis: {
