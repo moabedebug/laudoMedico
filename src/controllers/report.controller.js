@@ -62,3 +62,17 @@ export async function remove(req, res) {
     return res.status(err.statusCode || 500).json({ message: err.message })
   }
 }
+
+export async function generatePdf(req, res) {
+  try {
+    const pdf = await Services.getReportPDF(req.params.id)
+    res.setHeader('Content-Type', 'application/pdf')
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename=relatorio-${req.params.id}.pdf`,
+    )
+    res.send(pdf)
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ message: err.message })
+  }
+}

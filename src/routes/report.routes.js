@@ -12,6 +12,7 @@ router.post('/', validateSchema(reportSchema), Controller.create)
 router.get('/patient/:id', Controller.findReportsByPatient)
 router.get('/doctor', Controller.findReportsByDoctor)
 router.get('/:id', Controller.findById)
+router.get('/:id/download', Controller.generatePdf)
 router.put('/:id', validateSchema(reportSchema), Controller.update)
 router.delete('/:id', Controller.remove)
 

@@ -2,6 +2,7 @@ import { isValidObjectId } from 'mongoose'
 import * as Errors from '../errors/index.js'
 import { Patient } from '../models/patient.model.js'
 import { ReportRepository } from '../repositories/report.repository.js'
+import { generateReportPDF } from '../utils/pdf.utils.js'
 
 export const createReport = async (reportData, doctorId) => {
   if (!isValidObjectId(doctorId)) {
@@ -85,4 +86,18 @@ export const removeReport = async (reportId) => {
   }
 
   return await ReportRepository.delete(reportId)
+}
+
+export const getReportPDF = async (reportId) => {
+  if (!isValidObjectId(reportId)) {
+    throw new Errors.InvalidReportIdError()
+  }
+
+  const report = await ReportRepository.findById(reportId)
+  if (!report) {
+    throw new Errors.ReportNotFoundError()
+  }
+
+  const pdfBuffer = await generateReportPDF(report)
+  return pdfBuffer
 }
