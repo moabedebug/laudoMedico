@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório Médico</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Segoe UI', sans-serif; background: #f4f4f4; }
+
+    .report-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+
+    .header {
+      background: #007D3E  !important;
+      color: #fff;
+      border-radius: 12px 12px 0 0;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 47, 108, 0.2);
+    }
+    .header img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+    .header h1 {
+      font-size: 40px;
+      font-weight: 800;
+      color: #1B4242;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-top: 16px;
+      padding: 24px;
+    }
+    .card + .card { margin-top: 12px; }
+
+    .card h2 {
+      font-size: 20px;
+      color: #00555A;
+      margin-bottom: 12px;
+    }
+    .card p {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #1B4242;
+    }
+    .card p span { font-weight: bold; }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      padding: 16px;
+      margin-top: 32px;
+      background: #e6f5f3;
+      border-radius: 0 0 12px 12px;
+    }
+
+    @media (max-width: 600px) {
+      .header { flex-direction: column; text-align: center; }
+      .btn-action { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    <div class="header" >
+      <img src="<%= logoDataUri %>" alt="Logo Clínica">
+      <h1>Clínica Vida & Saúde</h1>
+    </div>
+
+    <div class="card">
+      <h2>Dados do Médico</h2>
+      <p><span>Doutor:</span> <%= report.doctorId.name %> </p>
+    </div>
+    <div class="card">
+      <h2>Dados do Paciente</h2>
+      <p><span>Paciente:</span> <%= report.patient.name %> </p>
+      <p><span>Idade:</span> <%= report.patient.age %> </p>
+      <p><span>Gênero:</span> <%= report.patient.gender %> </p>
+    </div>
+    <div class="card">
+      <h2>Informações Clínicas</h2>
+      <p><span>Diagnóstico:</span> <%= report.diagnosis %> </p>
+      <p><span>Observações:</span> <%= report.observations || '-' %> </p>
+      <p><span>Recomendações:</span>  <%= report.recommendation || '-' %> </p>
+      <p><span>Data:</span> <%= new Date(report.createdAt).toLocaleDateString() %> </p>
+    </div>
+
+    <footer>
+      Clínica Vida & Saúde · CNPJ: 00.000.000/0001-00<br>
+      Rua da Saúde, 123 – Centro, São Paulo – SP · (11) 99999-9999 · contato@clinica.com.br
+    </footer>
+  </div>
+</body>
+</html>
