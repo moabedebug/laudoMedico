@@ -1,21 +1,21 @@
 # 🩺 Laudo Médico API
 
-API REST desenvolvida em Node.js para permitir que médicos criem, consultem e gerenciem relatórios (laudos) dos seus pacientes de forma segura e organizada.
+API RESTful desenvolvida em Node.js que permite que médicos registrem, consultem e gerenciem relatórios (laudos) de seus pacientes com autenticação segura, validações robustas e geração de laudos em PDF.
 
 ---
 
 ## 🚀 Tecnologias utilizadas
 
-- Node.js
-- Express
+- Node.js + Express
 - MongoDB + Mongoose
 - JWT para autenticação
 - bcryptjs para hash de senhas
-- Zod para validações
-- Swagger para documentação da API
-- ESLint + Prettier (Rocketseat config)
-- Dotenv
-- Nodemon (ambiente de desenvolvimento)
+- Zod para validação de dados
+- Puppeteer + EJS para geração de PDFs com templates dinâmicos
+- Swagger (OpenAPI) para documentação da API
+- ESLint + Prettier (config da Rocketseat)
+- Dotenv para variáveis de ambiente
+- Nodemon (em ambiente de desenvolvimento)
 
 ---
 
@@ -64,6 +64,7 @@ http://localhost:3333/api-docs
 
 ```bash
 src/
+├── assets/         # Arquivos estáticos (ex: imagens usadas em PDFs)
 ├── config/         # Configurações de banco e ambiente
 ├── controllers/    # Lida com as requisições HTTP
 ├── doc/            # Documentação técnica da API (Swagger, exemplos, guias)
@@ -74,6 +75,7 @@ src/
 ├── routes/         # Rotas da aplicação
 ├── schemas/        # Validações com Zod
 ├── services/       # Casos de uso e lógica de negócio
+├── templates/       # Templates EJS para geração de PDF
 ├── utils/          # Funções utilitárias reutilizáveis
 ├── app.js          # Setup da aplicação
 └── server.js       # Inicialização do servidor
@@ -83,11 +85,13 @@ src/
 
 ## 🔐 Funcionalidades
 
-- Registro e login de usuários com autenticação JWT
-- Criação, edição, listagem e exclusão de pacientes
-- Geração de relatórios médicos
-- Validação robusta de dados com Zod
-- Rotas protegidas com middleware de autenticação
+- ✅ Registro e autenticação de médicos (usuários)
+- ✅ Middleware de autenticação com JWT
+- ✅ Cadastro, listagem, edição e exclusão de pacientes
+- ✅ Criação e consulta de laudos médicos
+- ✅ Geração de laudo médico em PDF com template visual
+- ✅ Validação robusta com Zod
+- ✅ API documentada com Swagger
 
 ---
 
