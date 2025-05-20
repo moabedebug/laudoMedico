@@ -101,11 +101,7 @@ Disponibilizo um arquivo de configuração do Insomnia contendo todas as requisi
 
 ## Como usar:
 
-    - Baixe o arquivo `insomnia.yaml` no local:
-
-    ```bash
-    src>insomnia>insomnia.yaml
-    ```
+    - Baixe o arquivo `insomnia.yaml` no local: src>insomnia>
 
     - Importe-o no Insomnia:
         - Abra o Insomnia.
