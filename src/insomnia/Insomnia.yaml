@@ -1,0 +1,440 @@
+type: collection.insomnia.rest/5.0
+name: Laudo Médico
+meta:
+  id: wrk_47e1f8fa2dfd4b838ebd427828484a69
+  created: 1747059307697
+  modified: 1747059307697
+collection:
+  - name: AUTH
+    meta:
+      id: fld_1ce90943a4f74f24ab1b28c59aa21224
+      created: 1747059317424
+      modified: 1747059452572
+      sortKey: -1747059317424
+    children:
+      - url: "{{ _.base_URL }}{{ _.doctors_URL }}/signup"
+        name: Create User
+        meta:
+          id: req_17811e4d079844d2b7fec3c6e88b5f0c
+          created: 1747059321920
+          modified: 1747780580998
+          isPrivate: false
+          sortKey: -1747059321920
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "",
+            	"email": "",
+            	"password": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.doctors_URL }}/login"
+        name: Login User
+        meta:
+          id: req_22ae618e310046b59ac9a2c095f89436
+          created: 1747072533175
+          modified: 1747780586557
+          isPrivate: false
+          sortKey: -1747072533175
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "",
+            	"password": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.doctors_URL }}/logout"
+        name: Logout User
+        meta:
+          id: req_f9f702d4dc9e4e09a89fcd1261422e90
+          created: 1747085407888
+          modified: 1747501857156
+          isPrivate: false
+          sortKey: -1747072533275
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: PATIENTS
+    meta:
+      id: fld_ceda0ed0a7944b91a9727f6980a6b0d2
+      created: 1747168226808
+      modified: 1747168226808
+      sortKey: -1747168226808
+    children:
+      - url: "{{ _.base_URL }}{{ _.patients_URL }}"
+        name: Index
+        meta:
+          id: req_9a0d0a754c6645e791ea38c62e892389
+          created: 1747168230263
+          modified: 1747170632983
+          isPrivate: false
+          sortKey: -1747168304978
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.patients_URL }}"
+        name: Create
+        meta:
+          id: req_b79f64984d734e05a3ccf222a4bddabf
+          created: 1747168379793
+          modified: 1747780676975
+          isPrivate: false
+          sortKey: -1747168379793
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "",
+            	"age": 0,
+            	"cpf": "",
+            	"phone": "",
+            	"email": "",
+            	"gender": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.patients_URL }}/{PATIENT_ID}"
+        name: Show
+        meta:
+          id: req_95e08add7ea443e78f7880f9f7440134
+          created: 1747168513207
+          modified: 1747780525265
+          isPrivate: false
+          sortKey: -1747168230163
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.patients_URL }}/{PATIENT_ID}"
+        name: Update
+        meta:
+          id: req_549dfd8929af4bd4bcd34670475c6551
+          created: 1747168564693
+          modified: 1747780617239
+          isPrivate: false
+          sortKey: -1747168230063
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "",
+            	"age": 0,
+            	"cpf": "",
+            	"phone": "",
+            	"email": "",
+            	"gender": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.patients_URL }}/{PATIENT_ID}"
+        name: Delete
+        meta:
+          id: req_221b0e5541e54b01845f0949e99333b8
+          created: 1747168596168
+          modified: 1747780547408
+          isPrivate: false
+          sortKey: -1747168229963
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: REPORTS
+    meta:
+      id: fld_0747c7b554614edb9ea8b81ae69c126a
+      created: 1747254522895
+      modified: 1747254522895
+      sortKey: -1747254522895
+    children:
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}"
+        name: Create
+        meta:
+          id: req_aa2e13025b9f429eb85ec079aab1fc7a
+          created: 1747254525370
+          modified: 1747780715926
+          isPrivate: false
+          sortKey: -1747262383649
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"patient": "{PATIENT_ID}",
+            	"diagnosis": "",
+            	"observations": "",
+            	"recommendation": "r"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/{REPORT_ID}"
+        name: Delete
+        meta:
+          id: req_0761f4d065674bd89b401ae95219a137
+          created: 1747262379490
+          modified: 1747780463005
+          isPrivate: false
+          sortKey: -1747262379490
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/{REPORT_ID}"
+        name: Update
+        meta:
+          id: req_cb1ace3791aa46ca9d62daa2542cc3ce
+          created: 1747262380919
+          modified: 1747780698238
+          isPrivate: false
+          sortKey: -1747262381244
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"diagnosis": "",
+            	"observations": "",
+            	"recommendation": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/{REPORT_ID}"
+        name: Show
+        meta:
+          id: req_b52f2f6766a0446ead3d05463c6381e3
+          created: 1747262382998
+          modified: 1747780473621
+          isPrivate: false
+          sortKey: -1747262382998
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/doctor"
+        name: Doctor
+        meta:
+          id: req_9c23d2f5a8554c98b4c8e5f4ab86d02c
+          created: 1747262383301
+          modified: 1747262617187
+          isPrivate: false
+          sortKey: -1747262383301
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/patient/{PATIENT_ID}"
+        name: Patient
+        meta:
+          id: req_ab5fb9bf3e6b440b82c21ffe077f9316
+          created: 1747262383549
+          modified: 1747780493427
+          isPrivate: false
+          sortKey: -1747262383549
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_URL }}{{ _.reports_URL }}/{REPORT_ID}/download"
+        name: PDF
+        meta:
+          id: req_f9b472d88a744e29ad858036448b94cf
+          created: 1747514164538
+          modified: 1747780444525
+          isPrivate: false
+          sortKey: -1747262379390
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: SWAGGER
+    meta:
+      id: fld_1c201c5bf4b04649b3b7e7bb8721ba03
+      created: 1747347183160
+      modified: 1747347183160
+      sortKey: -1747347183160
+    children:
+      - url: "{{ _.base_URL }}{{ _.swagger_URL }}"
+        name: SWAGGER
+        meta:
+          id: req_6efbadab5cf7474cb549efe8c0e6873f
+          created: 1747347188907
+          modified: 1747347364957
+          isPrivate: false
+          sortKey: -1747347188907
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0e454b7ce36474027d2e2a3e07fa7b5da2eb2862
+    created: 1747059307705
+    modified: 1747528305197
+environments:
+  name: Base Environment
+  meta:
+    id: env_0e454b7ce36474027d2e2a3e07fa7b5da2eb2862
+    created: 1747059307701
+    modified: 1747354276915
+    isPrivate: false
+  data:
+    base_URL: http://localhost:3333
+    doctors_URL: /api/v1/doctors
+    patients_URL: /api/v1/patients
+    reports_URL: /api/v1/reports
+    swagger_URL: /api-docs
