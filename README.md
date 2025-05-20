@@ -99,8 +99,6 @@ src/
 
 Disponibilizo um arquivo de configuração do Insomnia contendo todas as requisições da API (endpoints para médicos, pacientes e laudos), com variáveis de ambiente já configuradas para facilitar os testes.
 
-## Como usar:
-
     - Baixe o arquivo `insomnia.yaml` no local: src>insomnia>
 
     - Importe-o no Insomnia:
