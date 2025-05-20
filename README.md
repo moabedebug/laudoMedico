@@ -99,13 +99,11 @@ src/
 
 Disponibilizo um arquivo de configuração do Insomnia contendo todas as requisições da API (endpoints para médicos, pacientes e laudos), com variáveis de ambiente já configuradas para facilitar os testes.
 
-    - Baixe o arquivo `insomnia.yaml` no local: src>insomnia>
-
+    - Baixe o arquivo insomnia.yaml no local: src>insomnia>
     - Importe-o no Insomnia:
         - Abra o Insomnia.
         - Vá em Import > From File.
         - Selecione o arquivo baixado.
-
     - Ajuste o valor da variável base_URL se necessário (ex: http://localhost:3333).
     - Execute as requisições para testar facilmente a API.
 
